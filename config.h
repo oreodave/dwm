@@ -10,7 +10,7 @@ static const unsigned int borderpx  = 10;       /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappx     = 10;        /* gaps between windows */
 static const int showbar            = true;        /* 0 means no bar */
-static const int topbar             = false;        /* 0 means bottom bar */
+static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "IBM Plex Sans:size=11" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_black[]       = "#161616";
@@ -60,6 +60,8 @@ static const Layout layouts[] = {
 	{ "[T]=",      tile },    /* first entry is default */
 	{ "<F>=",      NULL },    /* no layout function means floating behavior */
 	{ "{M}",      monocle },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -93,13 +95,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, setgaps,        {.i = +1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
-	{ MODKEY|ShiftMask,             XK_period, incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  incnmaster,     {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, incnmaster,     {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_comma,  incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_c,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_i,      focusmon,       {.i = -1 } },
