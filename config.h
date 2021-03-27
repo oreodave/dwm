@@ -36,6 +36,10 @@ static const char *colors[][3]      = {
 /* tagging */
 static const char *tags[] = { "", "", "", "", "", "6", "7", "8", "9" };
 
+/* Custom functions */
+static void resetgaps(const Arg *arg);
+static void printgaps(const Arg *arg);
+
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -93,10 +97,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,  setgaps,        {.i = -1} },
 	{ MODKEY,                       XK_period, setgaps,        {.i = +1 } },
+	{ MODKEY,                       XK_slash,  resetgaps,      {0} },
+	{ MODKEY|ShiftMask,             XK_slash,  printgaps,      {0} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
-	{ MODKEY|ControlMask,           XK_period, incnmaster,     {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_comma,  incnmaster,     {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, incnmaster,     {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_comma,  incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_c,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -138,3 +144,22 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
+void
+resetgaps(const Arg *arg)
+{
+  if (!selmon)
+    return;
+  selmon->gappx = gappx;
+  arrange(selmon);
+}
+
+void
+printgaps(const Arg *arg)
+{
+  if (!selmon)
+    return;
+  char *cmd = malloc(sizeof(*cmd) * 24);
+  sprintf(cmd, "notify-send \"Gaps=%d\"", selmon->gappx);
+  system(cmd);
+}
