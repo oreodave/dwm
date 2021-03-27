@@ -6,7 +6,7 @@
 #define GTMask(X) 1 << (X - 1)
 
 /* appearance */
-static const unsigned int borderpx  = 10;       /* border pixel of windows */
+static const unsigned int borderpx  = 2;       /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappx     = 10;        /* gaps between windows */
 static const int showbar            = true;        /* 0 means no bar */
