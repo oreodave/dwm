@@ -52,6 +52,8 @@ static const Rule rules[] = {
 	{ "media-term",     NULL,       NULL,       GTMask(3),    0,           -1 },
 	{ "Zathura",        NULL,       NULL,       GTMask(4),    0,           -1 },
 	{ "Dev",            NULL,       NULL,       GTMask(5),    0,           -1 },
+	{ "firefox",        NULL,       NULL,       GTMask(2),    0,           -1 },
+	{ "chromium",       NULL,       NULL,       GTMask(2),    0,           -1 },
 };
 
 /* layout(s) */
