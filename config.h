@@ -162,6 +162,6 @@ printgaps(const Arg *arg)
   if (!selmon)
     return;
   char *cmd = malloc(sizeof(*cmd) * 24);
-  sprintf(cmd, "notify-send \"Gaps=%d\"", selmon->gappx);
+  sprintf(cmd, "notify-send -u low \"Gaps=%d\"", selmon->gappx);
   system(cmd);
 }
