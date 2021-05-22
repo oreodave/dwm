@@ -53,7 +53,7 @@ static const Rule rules[] = {
 	{ "Zathura",        NULL,       NULL,       GTMask(4),    0,           -1 },
 	{ "Dev",            NULL,       NULL,       GTMask(5),    0,           -1 },
 	{ "firefox",        NULL,       NULL,       GTMask(2),    0,           -1 },
-	{ "chromium",       NULL,       NULL,       GTMask(2),    0,           -1 },
+	{ "Chromium",       NULL,       NULL,       GTMask(2),    0,           -1 },
 };
 
 /* layout(s) */
@@ -112,8 +112,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_i,      focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_d,      focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
@@ -154,6 +154,7 @@ resetgaps(const Arg *arg)
     return;
   selmon->gappx = gappx;
   arrange(selmon);
+  system("notify-send -u low \"Gaps reset\"");
 }
 
 void
