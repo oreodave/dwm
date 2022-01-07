@@ -4,15 +4,18 @@
 #define false 0
 
 #define GTMask(X) 1 << (X - 1)
+#define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx  = 2;       /* border pixel of windows */
+static const unsigned int borderpx  = 0;       /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappx     = 0;        /* gaps between windows */
+static const unsigned int gappx     = 0;        /* default gaps between windows */
+static const unsigned int opengap   = 10;        /* optional gaps between windows */
+static unsigned int togglegap       = true;
 static const int showbar            = true;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "IBM Plex Sans:size=11" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "Liberation Mono:size=12" };
+static const char dmenufont[]       = "monospace:size=9";
 static const char col_black[]       = "#161616";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -34,10 +37,10 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "", "6", "7", "8", "9" };
 
 /* Custom functions */
-static void resetgaps(const Arg *arg);
+static void togglegaps(const Arg *arg);
 static void printgaps(const Arg *arg);
 
 static const Rule rules[] = {
@@ -47,13 +50,15 @@ static const Rule rules[] = {
 	 */
 	/* class            instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
+	{ "Onboard",        NULL,       NULL,       0,            1,           -1 },
 	{ "qutebrowser",    NULL,       NULL,       GTMask(2),    0,           -1 },
-	{ "mpv",            NULL,       NULL,       GTMask(3),    0,           -1 },
-	{ "media-term",     NULL,       NULL,       GTMask(3),    0,           -1 },
-	{ "Zathura",        NULL,       NULL,       GTMask(4),    0,           -1 },
-	{ "Dev",            NULL,       NULL,       GTMask(5),    0,           -1 },
 	{ "firefox",        NULL,       NULL,       GTMask(2),    0,           -1 },
 	{ "Chromium",       NULL,       NULL,       GTMask(2),    0,           -1 },
+	{ "mpv",            NULL,       NULL,       GTMask(3),    0,           -1 },
+	{ "media-term",     NULL,       NULL,       GTMask(3),    0,           -1 },
+	{ "Spotify",        NULL,       NULL,       GTMask(3),    0,           -1 },
+	{ "Zathura",        NULL,       NULL,       GTMask(4),    0,           -1 },
+	{ "Xournalpp",      NULL,       NULL,       GTMask(5),    0,           -1 },
 };
 
 /* layout(s) */
@@ -98,15 +103,13 @@ static Key keys[] = {
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,  setgaps,        {.i = -1} },
-	{ MODKEY,                       XK_period, setgaps,        {.i = +1 } },
-	{ MODKEY,                       XK_slash,  resetgaps,      {0} },
+	{ MODKEY,                       XK_slash,  togglegaps,     {0} },
 	{ MODKEY|ShiftMask,             XK_slash,  printgaps,      {0} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
 	{ MODKEY|ControlMask,           XK_period, incnmaster,     {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_comma,  incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_c,      zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -114,10 +117,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_i,      focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_d,      focusmon,       {.i = +1 } },
+	{ MODKEY,                       XK_m,      focusmon,       {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_Tab,    view,           {.ui = 0} }, \
+	{ MODKEY|ShiftMask,             XK_Tab,    tag,            {.ui = 0} }, \
+	{ MODKEY|ControlMask,           XK_Tab,    toggleview,     {.ui = 0} }, \
+	{ MODKEY|ControlMask|ShiftMask, XK_Tab,    toggletag,      {.ui = 0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -148,13 +154,19 @@ static Button buttons[] = {
 };
 
 void
-resetgaps(const Arg *arg)
+togglegaps(const Arg *arg)
 {
   if (!selmon)
     return;
-  selmon->gappx = gappx;
+  if (togglegap)
+    selmon->gappx = opengap;
+  else
+    selmon->gappx = gappx;
   arrange(selmon);
-  system("notify-send -u low \"Gaps reset\"");
+  system(togglegap
+         ? "notify-send -u low \"Gaps on\""
+         : "notify-send -u low \"Gaps off\"");
+  togglegap = !togglegap;
 }
 
 void
