@@ -7,33 +7,34 @@
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx  = 0;       /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappx     = 0;        /* default gaps between windows */
-static const unsigned int opengap   = 10;        /* optional gaps between windows */
-static unsigned int togglegap       = true;
-static const int showbar            = true;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Liberation Mono:size=12" };
-static const char dmenufont[]       = "monospace:size=9";
-static const char col_black[]       = "#161616";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char col_blue[]       = "#0217FC";
-static const char col_blue2[]      = "#6e95ff";
-static const char col_red[]         = "#910d01";
-static const char *colors[][3]      = {
-	/* Scheme            fg         bg         border   */
-	[SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]      = { col_gray4, col_cyan,  col_blue  },
-	[SchemeStatus]   = { col_blue2, "#222222",  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_blue2, col_black,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-	[SchemeTagsNorm] = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-	[SchemeInfoSel]  = { col_gray4, col_black,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-	[SchemeInfoNorm] = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+static const unsigned int borderpx = 0;       /* border pixel of windows */
+static const unsigned int snap     = 32;       /* snap pixel */
+static const unsigned int gappx    = 0;        /* default gaps between windows */
+static const unsigned int opengap  = 20;        /* optional gaps between windows */
+static unsigned int togglegap      = true;
+static const int showbar           = true;        /* 0 means no bar */
+static const int topbar            = 1;        /* 0 means bottom bar */
+static const char *fonts[]         = { "Liberation Mono:size=12" };
+static const char dmenufont[]      = "monospace:size=9";
+static const char col_black[]      = "#161616";
+static const char col_gray1[]      = "#222222";
+static const char col_gray2[]      = "#444444";
+static const char col_gray3[]      = "#bbbbbb";
+static const char col_gray4[]      = "#eeeeee";
+static const char col_cyan[]       = "#005577";
+static const char col_lblue[]      = "#0217FC";
+static const char col_dblue[]      = "#6e95ff";
+static const char col_lgreen[]     = "#55f055";
+static const char col_dgreen[]     = "#008000";
+static const char *colors[][3]     = {
+	/* Scheme            fg          bg           border   */
+	[SchemeNorm]     = { col_gray3,  col_gray1,   col_black },
+	[SchemeSel]      = { col_gray4,  col_cyan,    "#230142"  },
+	[SchemeStatus]   = { col_lgreen, col_black,   "#000000"  },
+	[SchemeTagsSel]  = { col_black,  col_dgreen,  "#000000"  },
+	[SchemeTagsNorm] = { col_lgreen, col_black,   "#000000"  },
+	[SchemeInfoSel]  = { col_gray4,  col_black,   "#000000"  },
+	[SchemeInfoNorm] = { col_gray3,  col_gray1,   "#000000"  },
 };
 
 /* tagging */
@@ -102,6 +103,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_period, setgaps,        {.i = +1} },
 	{ MODKEY,                       XK_comma,  setgaps,        {.i = -1} },
 	{ MODKEY,                       XK_slash,  togglegaps,     {0} },
 	{ MODKEY|ShiftMask,             XK_slash,  printgaps,      {0} },
