@@ -37,7 +37,7 @@ static const char *colors[][3]     = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "𝅘𝅥𝅮", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "✏", "6", "7", "8", "9" };
 
 /* Custom functions */
 static void togglegaps(const Arg *arg);
@@ -49,22 +49,24 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class            instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
-	{ "Onboard",        NULL,       NULL,       0,            1,           -1 },
-	{ "qutebrowser",    NULL,       NULL,       GTMask(2),    0,           -1 },
-	{ "firefox",        NULL,       NULL,       GTMask(2),    0,           -1 },
-	{ "Chromium",       NULL,       NULL,       GTMask(2),    0,           -1 },
-	{ "mpv",            NULL,       NULL,       GTMask(3),    0,           -1 },
-	{ "media-term",     NULL,       NULL,       GTMask(3),    0,           -1 },
-	{ "Spotify",        NULL,       NULL,       GTMask(3),    0,           -1 },
-	{ "Zathura",        NULL,       NULL,       GTMask(4),    0,           -1 },
-	{ "Xournalpp",      NULL,       NULL,       GTMask(5),    0,           -1 },
+	{ "Gimp",           NULL,              NULL,       0,            1,           -1 },
+	{ "Onboard",        NULL,              NULL,       0,            1,           -1 },
+	{ "qutebrowser",    NULL,              NULL,       GTMask(2),    0,           -1 },
+	{ "firefox",        NULL,              NULL,       GTMask(2),    0,           -1 },
+	{ "Chromium",       NULL,              NULL,       GTMask(2),    0,           -1 },
+	{ "mpv",            NULL,              NULL,       GTMask(3),    0,           -1 },
+	{ "media-term",     NULL,              NULL,       GTMask(3),    0,           -1 },
+	{ "Spotify",        NULL,              NULL,       GTMask(3),    0,           -1 },
+	{ "Zathura",        NULL,              NULL,       GTMask(4),    0,           -1 },
+	{ "Xournalpp",      NULL,              NULL,       GTMask(5),    0,           -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55;    /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+
+#include "./fibonacci.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -73,6 +75,8 @@ static const Layout layouts[] = {
 	{ "{M}",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
+	{ "[@]",      spiral },
+	{ "[\\]",      dwindle },
 };
 
 /* key definitions */
@@ -116,6 +120,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} }, //monocle
 	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} }, //cmonocle
 	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} }, //cfmonocle
+	{ MODKEY|ShiftMask,             XK_s,      setlayout,      {.v = &layouts[5]} }, //fib-spiral
+	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[6]} }, //fib-spiral
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_m,      focusmon,       {.i = -1 } },
