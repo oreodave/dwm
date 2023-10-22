@@ -12,8 +12,8 @@ static const unsigned int gappx    = 0;        /* default gaps between windows *
 static const unsigned int opengap  = 20;        /* optional gaps between windows */
 static unsigned int togglegap      = true;
 static const int showbar           = true;        /* 0 means no bar */
-static const int topbar            = 1;        /* 0 means bottom bar */
-static const char *fonts[]         = { "Noto Sans Mono:size=11" };
+static const int topbar            = 0;        /* 0 means bottom bar */
+static const char *fonts[]         = { "Noto Sans Mono:size=13" };
 static const char dmenufont[]      = "monospace:size=9";
 static const char col_black[]      = "#161616";
 static const char col_gray1[]      = "#222222";
@@ -21,19 +21,19 @@ static const char col_gray2[]      = "#444444";
 static const char col_gray3[]      = "#bbbbbb";
 static const char col_gray4[]      = "#eeeeee";
 static const char col_cyan[]       = "#005577";
-static const char col_lblue[]      = "#0217FC";
-static const char col_dblue[]      = "#6e95ff";
+static const char col_lblue[]      = "#77aafc";
+static const char col_dblue[]      = "#225599";
 static const char col_lgreen[]     = "#55f055";
 static const char col_dgreen[]     = "#008000";
 static const char *colors[][3]     = {
 	/* Scheme            fg          bg           border   */
 	[SchemeNorm]     = { col_gray3,  col_gray1,   col_black },
-	[SchemeSel]      = { col_gray4,  col_cyan,    "#230142"  },
-	[SchemeStatus]   = { col_lgreen, col_black,   "#000000"  },
-	[SchemeTagsSel]  = { col_black,  col_dgreen,  "#000000"  },
-	[SchemeTagsNorm] = { col_lgreen, col_black,   "#000000"  },
-	[SchemeInfoSel]  = { col_gray4,  col_black,   "#000000"  },
-	[SchemeInfoNorm] = { col_gray3,  col_gray1,   "#000000"  },
+	[SchemeSel]      = { col_gray4,  col_cyan,    "#230142" },
+	[SchemeStatus]   = { col_lblue,  col_black,   col_black },
+	[SchemeTagsSel]  = { col_gray4,  col_dblue,   col_black },
+	[SchemeTagsNorm] = { col_lblue,  col_black,   col_black },
+	[SchemeInfoSel]  = { col_gray4,  col_black,   col_black },
+	[SchemeInfoNorm] = { col_gray3,  col_gray1,   col_black },
 };
 
 /* tagging */
@@ -48,17 +48,17 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class            instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",           NULL,              NULL,       0,            1,           -1 },
-	{ "Onboard",        NULL,              NULL,       0,            1,           -1 },
-	{ "qutebrowser",    NULL,              NULL,       GTMask(2),    0,           -1 },
-	{ "firefox",        NULL,              NULL,       GTMask(2),    0,           -1 },
-	{ "Chromium",       NULL,              NULL,       GTMask(2),    0,           -1 },
-	{ "mpv",            NULL,              NULL,       GTMask(3),    0,           -1 },
-	{ "media-term",     NULL,              NULL,       GTMask(3),    0,           -1 },
-	{ "Spotify",        NULL,              NULL,       GTMask(3),    0,           -1 },
-	{ "Zathura",        NULL,              NULL,       GTMask(4),    0,           -1 },
-	{ "Xournalpp",      NULL,              NULL,       GTMask(5),    0,           -1 },
+	/* class                             instance        title    tags mask     isfloating   monitor */
+	{ "Gimp",                            NULL,              NULL,       0,            1,           -1 },
+	{ "Onboard",                         NULL,              NULL,       0,            1,           -1 },
+	{ "qutebrowser",                     NULL,              NULL,       GTMask(2),    0,           -1 },
+	{ "firefox",                         NULL,              NULL,       GTMask(2),    0,           -1 },
+	{ "Chromium",                        NULL,              NULL,       GTMask(2),    0,           -1 },
+	{ "mpv",                             NULL,              NULL,       GTMask(3),    0,           -1 },
+	{ "media-term",                      NULL,              NULL,       GTMask(3),    0,           -1 },
+	{ "Spotify",                         NULL,              NULL,       GTMask(3),    0,           -1 },
+	{ "Zathura",                         NULL,              NULL,       GTMask(4),    0,           -1 },
+	{ "Com.github.xournalpp.xournalpp",  NULL,              NULL,       GTMask(5),    0,           -1 },
 };
 
 /* layout(s) */
