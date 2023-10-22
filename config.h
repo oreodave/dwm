@@ -13,7 +13,7 @@ static const unsigned int opengap  = 20;        /* optional gaps between windows
 static unsigned int togglegap      = true;
 static const int showbar           = true;        /* 0 means no bar */
 static const int topbar            = 1;        /* 0 means bottom bar */
-static const char *fonts[]         = { "Liberation Mono:size=12" };
+static const char *fonts[]         = { "Noto Sans Mono:size=11" };
 static const char dmenufont[]      = "monospace:size=9";
 static const char col_black[]      = "#161616";
 static const char col_gray1[]      = "#222222";
