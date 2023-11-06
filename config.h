@@ -70,13 +70,14 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[T]=",      tile },    /* first entry is default */
-	{ "<F>=",      NULL },    /* no layout function means floating behavior */
+	{ "[T]=",     tile },    /* first entry is default */
+	{ "<F>=",     NULL },    /* no layout function means floating behavior */
 	{ "{M}",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
 	{ "[@]",      spiral },
-	{ "[\\]",      dwindle },
+	{ "[\\]",     dwindle },
+	{ "[D]",      deck },
 };
 
 /* key definitions */
@@ -118,10 +119,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} }, //tiling
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} }, //floating
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} }, //monocle
-	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} }, //cmonocle
-	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} }, //cfmonocle
-	{ MODKEY|ShiftMask,             XK_s,      setlayout,      {.v = &layouts[5]} }, //fib-spiral
-	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[6]} }, //fib-spiral
+	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[3]} }, //cmonocle
+	{ MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[4]} }, //cfmonocle
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[5]} }, //fib-spiral
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[6]} }, //fib-spiral
+	{ MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[7]} }, //deck
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_m,      focusmon,       {.i = -1 } },
