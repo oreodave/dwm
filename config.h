@@ -54,7 +54,6 @@ static const Rule rules[] = {
 	{ "qutebrowser",                     NULL,              NULL,       GTMask(2),    0,           -1 },
 	{ "firefox",                         NULL,              NULL,       GTMask(2),    0,           -1 },
 	{ "Chromium",                        NULL,              NULL,       GTMask(2),    0,           -1 },
-	{ "mpv",                             NULL,              NULL,       GTMask(3),    0,           -1 },
 	{ "media-term",                      NULL,              NULL,       GTMask(3),    0,           -1 },
 	{ "Spotify",                         NULL,              NULL,       GTMask(3),    0,           -1 },
 	{ "Zathura",                         NULL,              NULL,       GTMask(4),    0,           -1 },
@@ -67,6 +66,7 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 #include "./fibonacci.c"
+#include "./gaplessgrid.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -77,6 +77,7 @@ static const Layout layouts[] = {
 	{ ">M>",      centeredfloatingmaster },
 	{ "[@]",      spiral },
 	{ "[\\]",     dwindle },
+	{ "###",      gaplessgrid },
 	{ "[D]",      deck },
 };
 
@@ -119,11 +120,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} }, //tiling
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} }, //floating
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} }, //monocle
-	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[3]} }, //cmonocle
-	{ MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[4]} }, //cfmonocle
-	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[5]} }, //fib-spiral
-	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[6]} }, //fib-spiral
-	{ MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[7]} }, //deck
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} }, //cmonocle
+	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} }, //cfmonocle
+	{ MODKEY|ShiftMask,             XK_s,      setlayout,      {.v = &layouts[5]} }, //fib-spiral
+	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[6]} }, //fib-spiral
+	{ MODKEY|ShiftMask,             XK_g,      setlayout,      {.v = &layouts[7]} }, //gapless-grid
+	{ MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[8]} }, //deck
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_m,      focusmon,       {.i = -1 } },
