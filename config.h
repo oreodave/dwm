@@ -37,7 +37,8 @@ static const char *colors[][3]     = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "✏", "6", "7", "8", "9" };
+
+static const char *tags[] = { "", "", "", "", "", "6", "7", "8", "9" };
 
 /* Custom functions */
 static void togglegaps(const Arg *arg);
@@ -132,9 +133,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_Tab,    view,           {.ui = 0} }, \
-	{ MODKEY|ShiftMask,             XK_Tab,    tag,            {.ui = 0} }, \
-	{ MODKEY|ControlMask,           XK_Tab,    toggleview,     {.ui = 0} }, \
-	{ MODKEY|ControlMask|ShiftMask, XK_Tab,    toggletag,      {.ui = 0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -185,7 +183,8 @@ printgaps(const Arg *arg)
 {
   if (!selmon)
     return;
-  char *cmd = malloc(sizeof(*cmd) * 24);
+  char *cmd = malloc(sizeof(*cmd) * 38);
   sprintf(cmd, "notify-send -u low \"Gaps=%d\"", selmon->gappx);
   system(cmd);
+	free(cmd);
 }

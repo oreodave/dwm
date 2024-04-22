@@ -1,0 +1,41 @@
+* Key layout
+Notation:
++ S = Super
++ C = Control
++ ^k = Shift-k
+
+S-b        = toggle bar
+S-grave    = toggle scratch terminal
+S-j        = focus next on the stack
+S-k        = focus prev on the stack
+** Gaps
+S-period   = Increase gaps
+S-comma    = Decrease gaps
+S-slash    = Turn gaps off and on
+S-^slash   = Print current gaps (notify-send)
+** Master manipulation
+S-h        = Decrease size of master
+S-l        = Increase size of master
+S-c        = Set current focused client to master
+S-C-period = Decrease number of master clients
+S-C-comma  = Increase number of master clients
+** Layouts
+S-^t       = Tiling
+S-^f       = Floating
+S-^m       = Monocle
+S-^u       = Centred monocle
+S-^o       = Centred floating monocle
+S-^s       = Spiral fibonacci
+S-^d       = Dwindle fibonacci
+S-^g       = 2 row grid
+S-^i       = Deck
+S-^space   = Toggle between current and previous layout
+S-space    = Toggle floating on currently focused client
+** Monitors
+S-m        = Focus on the next monitor (wraps around)
+S-^comma   = Send to previous monitor
+S-^period  = Send to next monitor
+** Tags and quit
+S-Tab      = Go to previously viewed tag
+S-q        = killclient
+S-^q       = quit

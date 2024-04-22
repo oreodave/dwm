@@ -1,6 +1,6 @@
 ;;; Directory Local Variables         -*- no-byte-compile: t; -*-
 ;;; For more information see (info "(emacs) Directory Variables")
 
-((c-mode . ((clang-format-mode . nil)
+((c-mode . ((indent-tabs-mode . t)
             (flycheck-mode . nil)
-            (eval . (remove-hook 'c-mode-hook #'clang-format-mode)))))
+            (eval . (clang-format-mode 0)))))
