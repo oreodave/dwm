@@ -117,6 +117,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
 	{ MODKEY|ControlMask,           XK_period, incnmaster,     {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_comma,  incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      inplacerotate,  {.i = +1} },
+	{ MODKEY|ShiftMask,             XK_j,      inplacerotate,  {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_h,      inplacerotate,  {.i = -2} },
+	{ MODKEY|ShiftMask,             XK_l,      inplacerotate,  {.i = +2} },
 	{ MODKEY,                       XK_c,      zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} }, //tiling
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} }, //floating
