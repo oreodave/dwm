@@ -1,0 +1,32 @@
+From f84237584b76348058bc205b2e0fcf5dfc005d47 Mon Sep 17 00:00:00 2001
+From: Aryadev Chavali <aryadev@aryadevchavali.com>
+Date: Tue, 23 Apr 2024 15:42:04 +0530
+Subject: [PATCH] Add gaps to gapless-grid (properly)
+
+This adjusts both the x and y of each client now.
+---
+ gaplessgrid.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/gaplessgrid.c b/gaplessgrid.c
+index 09d9ac8..649f656 100644
+--- a/gaplessgrid.c
++++ b/gaplessgrid.c
+@@ -22,11 +22,10 @@ gaplessgrid(Monitor *m) {
+ 	for(i = 0, c = nexttiled(m->clients); c; i++, c = nexttiled(c->next)) {
+ 		if(i/rows + 1 > cols - n%cols)
+ 			rows = n/cols + 1;
+-		ch = (rows ? m->wh / rows : m->wh);
+-		cx = (m->wx + cn*cw);
+-		cy = (m->wy + rn*ch);
+-		resize(c, cx, cy, cw - 2 * c->bw, ch - 2 * c->bw, False);
++		ch = (rows ? m->wh / rows : m->wh) - m->gappx;
++		cx = (m->wx + cn*cw) + m->gappx;
++		cy = (m->wy + rn*ch) + m->gappx;
++		resize(c, cx + m->gappx, cy + m->gappx, cw - 2 * c->bw - m->gappx, ch - 2 * c->bw - m->gappx, False);
+ 		rn++;
+ 		if(rn >= rows) {
+ 			rn = 0;
+--
+2.44.0
+
