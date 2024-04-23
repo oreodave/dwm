@@ -1,0 +1,29 @@
+From 09ed528140fadeb5641bf6871f92ce83aa3d4880 Mon Sep 17 00:00:00 2001
+From: Aryadev Chavali <aryadev@aryadevchavali.com>
+Date: Tue, 23 Apr 2024 16:12:19 +0530
+Subject: [PATCH] Monocle now uses gaps
+
+Just added gaps to moncole layout.
+---
+ dwm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/dwm.c b/dwm.c
+index 19ee521..a6aaace 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1244,8 +1244,10 @@ monocle(Monitor *m)
+ 	if (n > 0) /* override layout symbol */
+ 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+ 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+-		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
++		resize(c, m->wx + m->gappx, m->wy + m->gappx,
++					 m->ww - 2 * c->bw - (2 * m->gappx),
++					 m->wh - 2 * c->bw - (2 * m->gappx),
++					 0);
+ }
+ 
+ void
+--
+2.44.0
+
