@@ -15,6 +15,7 @@ gaplessgrid(Monitor *m) {
 		cols = 2;
 	rows = n/cols;
 
+	const int gap_size = m->pertag->gaps[m->pertag->curtag];
 	/* window geometries */
 	cw = cols ? m->ww / cols : m->ww;
 	cn = 0; /* current column number */
@@ -22,10 +23,10 @@ gaplessgrid(Monitor *m) {
 	for(i = 0, c = nexttiled(m->clients); c; i++, c = nexttiled(c->next)) {
 		if(i/rows + 1 > cols - n%cols)
 			rows = n/cols + 1;
-		ch = (rows ? m->wh / rows : m->wh) - m->gappx;
-		cx = (m->wx + cn*cw) + m->gappx;
-		cy = (m->wy + rn*ch) + m->gappx;
-		resize(c, cx + m->gappx, cy + m->gappx, cw - 2 * c->bw - m->gappx, ch - 2 * c->bw - m->gappx, False);
+		ch = (rows ? m->wh / rows : m->wh) - gap_size;
+		cx = (m->wx + cn*cw) + gap_size;
+		cy = (m->wy + rn*ch) + gap_size;
+		resize(c, cx + gap_size, cy + gap_size, cw - 2 * c->bw - gap_size, ch - 2 * c->bw - gap_size, False);
 		rn++;
 		if(rn >= rows) {
 			rn = 0;
