@@ -122,7 +122,6 @@ struct Monitor {
 	int by;               /* bar geometry */
 	int mx, my, mw, mh;   /* screen size */
 	int wx, wy, ww, wh;   /* window area  */
-	int gappx;            /* gaps between windows */
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
@@ -287,16 +286,19 @@ static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
 
 /* configuration, allows nested code to access above variables */
-#include "config.h"
+// TODO: Figure out if there is a better way of doing this
+#define TAG_SIZE 9
 struct Pertag {
 	unsigned int curtag, prevtag; /* current and previous tag */
-	int nmasters[LENGTH(tags) + 1]; /* number of windows in master area */
-	float mfacts[LENGTH(tags) + 1]; /* mfacts per tag */
-	unsigned int sellts[LENGTH(tags) + 1]; /* selected layouts */
-	const Layout *ltidxs[LENGTH(tags) + 1][2]; /* matrix of tags and layouts indexes  */
-	int showbars[LENGTH(tags) + 1]; /* display bar for the current tag */
+	int nmasters[TAG_SIZE + 1]; /* number of windows in master area */
+	float mfacts[TAG_SIZE + 1]; /* mfacts per tag */
+	unsigned int sellts[TAG_SIZE + 1]; /* selected layouts */
+	const Layout *ltidxs[TAG_SIZE + 1][2]; /* matrix of tags and layouts indexes  */
+	int showbars[TAG_SIZE + 1]; /* display bar for the current tag */
+	int gaps[TAG_SIZE + 1];    /* size of gaps for the current tag*/
 };
 
+#include "config.h"
 
 static unsigned int scratchtag = 1 << LENGTH(tags);
 
@@ -715,7 +717,6 @@ createmon(void)
 	m->nmaster = nmaster;
 	m->showbar = showbar;
 	m->topbar = topbar;
-	m->gappx = gappx;
 	m->lt[0] = &layouts[0];
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -731,6 +732,7 @@ createmon(void)
 		m->pertag->sellts[i] = m->sellt;
 
 		m->pertag->showbars[i] = m->showbar;
+		m->pertag->gaps[i] = gappx;
 	}
 
 	return m;
@@ -748,7 +750,7 @@ destroynotify(XEvent *e)
 
 void
 deck(Monitor *m) {
-	unsigned int i, n, h, mw, my, ns;
+	unsigned int i, n, h, mw, my, ns, gap_size;
 	Client *c;
 
 	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
@@ -763,15 +765,16 @@ deck(Monitor *m) {
 		mw = m->ww;
 		ns = 1;
 	}
-	for(i = 0, my = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+
+	gap_size = m->pertag->gaps[m->pertag->curtag];
+	for(i = 0, my = gap_size, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if(i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gappx;
-			resize(c, m->wx + gappx, m->wy + my, mw - (2*c->bw) - gappx*(5-ns)/2, h - (2*c->bw), False);
-			if (my + HEIGHT(c) < m->wh)
-				my += HEIGHT(c) + m->gappx;
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gap_size;
+			resize(c, m->wx + gap_size, m->wy + my, mw - (2*c->bw) - gap_size*(5-ns)/2, h - (2*c->bw), False);
+			my += HEIGHT(c) + gap_size;
 		}
 		else
-			resize(c, m->wx + mw + gappx/ns, m->wy + gappx, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, m->wh - (2*c->bw) - 2*gappx, False);
+			resize(c, m->wx + mw + gap_size/ns, m->wy + gap_size, m->ww - mw - (2*c->bw) - gap_size*(5-ns)/2, m->wh - (2*c->bw) - 2*gap_size, False);
 }
 
 void
@@ -1243,10 +1246,11 @@ monocle(Monitor *m)
 			n++;
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+	const int gap_size = m->pertag->gaps[m->pertag->curtag];
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx + m->gappx, m->wy + m->gappx,
-					 m->ww - 2 * c->bw - (2 * m->gappx),
-					 m->wh - 2 * c->bw - (2 * m->gappx),
+		resize(c, m->wx + gap_size, m->wy + gap_size,
+					 m->ww - 2 * c->bw - (2 * gap_size),
+					 m->wh - 2 * c->bw - (2 * gap_size),
 					 0);
 }
 
@@ -1646,10 +1650,11 @@ setfullscreen(Client *c, int fullscreen)
 void
 setgaps(const Arg *arg)
 {
-	if ((arg->i == 0) || (selmon->gappx + arg->i < 0))
-		selmon->gappx = 0;
+	int *gap_size = &selmon->pertag->gaps[selmon->pertag->curtag];
+	if ((arg->i == 0) || ((*gap_size) + arg->i < 0))
+		*gap_size = 0;
 	else
-		selmon->gappx += arg->i;
+		*gap_size += arg->i;
 	arrange(selmon);
 }
 
@@ -1839,21 +1844,22 @@ tile(Monitor *m)
 	if (n == 0)
 		return;
 
+	const int gap_size = m->pertag->gaps[m->pertag->curtag];
 	if (n > m->nmaster)
 		mw = m->nmaster ? m->ww * m->mfact : 0;
 	else
-		mw = m->ww - m->gappx;
-	for (i = 0, my = ty = m->gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		mw = m->ww - gap_size;
+	for (i = 0, my = ty = gap_size, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - m->gappx;
-			resize(c, m->wx + m->gappx, m->wy + my, mw - (2*c->bw) - m->gappx, h - (2*c->bw), 0);
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gap_size;
+			resize(c, m->wx + gap_size, m->wy + my, mw - (2*c->bw) - gap_size, h - (2*c->bw), 0);
 			if (my + HEIGHT(c) < m->wh)
-        my += HEIGHT(c) + m->gappx;
+        my += HEIGHT(c) + gap_size;
 		} else {
-			h = (m->wh - ty) / (n - i) - m->gappx;
-			resize(c, m->wx + mw + m->gappx, m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->gappx, h - (2*c->bw), 0);
+			h = (m->wh - ty) / (n - i) - gap_size;
+			resize(c, m->wx + mw + gap_size, m->wy + ty, m->ww - mw - (2*c->bw) - 2*gap_size, h - (2*c->bw), 0);
 			if (ty + HEIGHT(c) < m->wh)
-				ty += HEIGHT(c) + m->gappx;
+				ty += HEIGHT(c) + gap_size;
 		}
 }
 
