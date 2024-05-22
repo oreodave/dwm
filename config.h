@@ -49,15 +49,16 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                             instance        title    tags mask     isfloating   monitor */
-	{ "Gimp",                            NULL,              NULL,       0,            1,           -1 },
-	{ "Onboard",                         NULL,              NULL,       0,            1,           -1 },
-	{ "qutebrowser",                     NULL,              NULL,       GTMask(2),    0,           -1 },
-	{ "firefox",                         NULL,              NULL,       GTMask(2),    0,           -1 },
-	{ "Chromium",                        NULL,              NULL,       GTMask(2),    0,           -1 },
-	{ "media-term",                      NULL,              NULL,       GTMask(3),    0,           -1 },
-	{ "Spotify",                         NULL,              NULL,       GTMask(3),    0,           -1 },
-	{ "Zathura",                         NULL,              NULL,       GTMask(4),    0,           -1 },
-	{ "Com.github.xournalpp.xournalpp",  NULL,              NULL,       GTMask(5),    0,           -1 },
+	{ "Gimp",                            NULL,           NULL,    0,            1,           -1 },
+	{ "mpv",                             NULL,           NULL,    GTMask(3),    1,           -1 },
+	{ "Onboard",                         NULL,           NULL,    0,            0,           -1 },
+	{ "qutebrowser",                     NULL,           NULL,    GTMask(2),    0,           -1 },
+	{ "firefox",                         NULL,           NULL,    GTMask(2),    0,           -1 },
+	{ "Chromium",                        NULL,           NULL,    GTMask(2),    0,           -1 },
+	{ "media-term",                      NULL,           NULL,    GTMask(3),    0,           -1 },
+	{ "Spotify",                         NULL,           NULL,    GTMask(3),    0,           -1 },
+	{ "Zathura",                         NULL,           NULL,    GTMask(4),    0,           -1 },
+	{ "Com.github.xournalpp.xournalpp",  NULL,           NULL,    GTMask(5),    0,           -1 },
 };
 
 /* layout(s) */
@@ -106,8 +107,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_period, setgaps,        {.i = +1} },
-	{ MODKEY,                       XK_comma,  setgaps,        {.i = -1} },
+	{ MODKEY,                       XK_period, setgaps,        {.i = +5} },
+	{ MODKEY,                       XK_comma,  setgaps,        {.i = -5} },
+	{ MODKEY|ControlMask,           XK_period, setgaps,        {.i = +1} },
+	{ MODKEY|ControlMask,           XK_comma,  setgaps,        {.i = -1} },
 	{ MODKEY,                       XK_slash,  togglegaps,     {0} },
 	{ MODKEY|ShiftMask,             XK_slash,  printgaps,      {0} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
