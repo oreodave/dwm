@@ -1,0 +1,30 @@
+From 6fc206cb7cce97f947d121b5ce80b665bcc37a6f Mon Sep 17 00:00:00 2001
+From: Aryadev Chavali <aryadev@aryadevchavali.com>
+Date: Wed, 22 May 2024 12:27:59 +0530
+Subject: [PATCH] [Patch] Remove dmenu functionality from DWM
+
+If using an external keyboard client such as sxhkdrc then dwm has no
+business or need to spawn something like dmenu.
+---
+ config.h | 2 --
+ dwm.c    | 4 +---
+ 2 files changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/dwm.c b/dwm.c
+index a6aaace..af66670 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1795,10 +1795,7 @@ sigchld(int unused)
+ void
+ spawn(const Arg *arg)
+ {
+-	if (arg->v == dmenucmd)
+-		dmenumon[0] = '0' + selmon->num;
+-	else if (arg->v == statuscmd) {
++	if (arg->v == statuscmd) {
+ 		statuscmd[2] = statuscmds[statuscmdn];
+ 		setenv("BUTTON", lastbutton, 1);
+ 	}
+--
+2.45.0
+
