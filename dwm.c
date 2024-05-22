@@ -1795,9 +1795,7 @@ sigchld(int unused)
 void
 spawn(const Arg *arg)
 {
-	if (arg->v == dmenucmd)
-		dmenumon[0] = '0' + selmon->num;
-	else if (arg->v == statuscmd) {
+	if (arg->v == statuscmd) {
 		statuscmd[2] = statuscmds[statuscmdn];
 		setenv("BUTTON", lastbutton, 1);
 	}
