@@ -6,13 +6,12 @@
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx = 0;       /* border pixel of windows */
-static const unsigned int snap     = 32;       /* snap pixel */
-static const unsigned int gappx    = 0;        /* default gaps between windows */
-static const unsigned int opengap  = 20;        /* optional gaps between windows */
-static unsigned int togglegap      = true;
-static const int showbar           = true;        /* 0 means no bar */
-static const int topbar            = 0;        /* 0 means bottom bar */
+static const unsigned int borderpx = 0;   /* border pixel of windows */
+static const unsigned int snap     = 32;  /* snap pixel */
+static const unsigned int opengap  = 20;  /* optional gaps between windows */
+static const unsigned int gappx    = 0;   /* default gaps between windows */
+static const int showbar           = true;   /* 0 means no bar */
+static const int topbar            = 0;   /* 0 means bottom bar */
 static const char *fonts[]         = { "Noto Sans Mono:size=13" };
 static const char dmenufont[]      = "monospace:size=9";
 static const char col_black[]      = "#161616";
@@ -169,15 +168,12 @@ togglegaps(const Arg *arg)
 {
   if (!selmon)
     return;
-  if (togglegap)
-    selmon->gappx = opengap;
+	int *gap_size = &selmon->pertag->gaps[selmon->pertag->curtag];
+  if (*gap_size == gappx)
+		selmon->pertag->gaps[selmon->pertag->curtag] = opengap;
   else
-    selmon->gappx = gappx;
+		selmon->pertag->gaps[selmon->pertag->curtag] = gappx;
   arrange(selmon);
-  system(togglegap
-         ? "notify-send -u low \"Gaps on\""
-         : "notify-send -u low \"Gaps off\"");
-  togglegap = !togglegap;
 }
 
 void
@@ -186,7 +182,8 @@ printgaps(const Arg *arg)
   if (!selmon)
     return;
   char *cmd = malloc(sizeof(*cmd) * 38);
-  sprintf(cmd, "notify-send -u low \"Gaps=%d\"", selmon->gappx);
+  sprintf(cmd, "notify-send -u low \"Gaps=%d\"",
+					selmon->pertag->gaps[selmon->pertag->curtag]);
   system(cmd);
 	free(cmd);
 }
