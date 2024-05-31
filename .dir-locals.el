@@ -2,5 +2,4 @@
 ;;; For more information see (info "(emacs) Directory Variables")
 
 ((c-mode . ((indent-tabs-mode . t)
-            (flycheck-mode . nil)
-            (eval . (clang-format-mode 0)))))
+            (flycheck-mode . -1))))
