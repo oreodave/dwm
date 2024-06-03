@@ -294,7 +294,7 @@ struct Pertag {
 	unsigned int sellts[TAG_SIZE + 1]; /* selected layouts */
 	const Layout *ltidxs[TAG_SIZE + 1][2]; /* matrix of tags and layouts indexes  */
 	int showbars[TAG_SIZE + 1]; /* display bar for the current tag */
-	int gaps[TAG_SIZE + 1];    /* size of gaps for the current tag*/
+	int gaps[TAG_SIZE + 1];     /* current size of gaps */
 };
 
 #include "config.h"
@@ -733,7 +733,7 @@ createmon(void)
 		m->pertag->sellts[i] = m->sellt;
 
 		m->pertag->showbars[i] = m->showbar;
-		m->pertag->gaps[i] = gappx;
+		m->pertag->gaps[i] = default_gaps;
 	}
 
 	return m;

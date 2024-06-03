@@ -6,25 +6,25 @@
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx = 0;   /* border pixel of windows */
-static const unsigned int snap     = 32;  /* snap pixel */
-static const unsigned int opengap  = 20;  /* optional gaps between windows */
-static const unsigned int gappx    = 0;   /* default gaps between windows */
-static const int showbar           = true;   /* 0 means no bar */
-static const int topbar            = 0;   /* 0 means bottom bar */
-static const char *fonts[]         = { "Noto Sans Mono:size=13" };
-static const char dmenufont[]      = "monospace:size=9";
-static const char col_black[]      = "#161616";
-static const char col_gray1[]      = "#222222";
-static const char col_gray2[]      = "#444444";
-static const char col_gray3[]      = "#bbbbbb";
-static const char col_gray4[]      = "#eeeeee";
-static const char col_cyan[]       = "#005577";
-static const char col_lblue[]      = "#77aafc";
-static const char col_dblue[]      = "#225599";
-static const char col_lgreen[]     = "#55f055";
-static const char col_dgreen[]     = "#008000";
-static const char *colors[][3]     = {
+static const unsigned int borderpx      = 0;    /* border pixel of windows */
+static const unsigned int snap          = 32;   /* snap pixel */
+static const unsigned int optional_gaps = 20;   /* optional gaps between windows */
+static const unsigned int default_gaps  = 0;    /* default gaps between windows */
+static const int showbar                = true; /* 0 means no bar */
+static const int topbar                 = 0;    /* 0 means bottom bar */
+static const char *fonts[]              = { "Noto Sans Mono:size=13" };
+static const char dmenufont[]           = "monospace:size=9";
+static const char col_black[]           = "#161616";
+static const char col_gray1[]           = "#222222";
+static const char col_gray2[]           = "#444444";
+static const char col_gray3[]           = "#bbbbbb";
+static const char col_gray4[]           = "#eeeeee";
+static const char col_cyan[]            = "#005577";
+static const char col_lblue[]           = "#77aafc";
+static const char col_dblue[]           = "#225599";
+static const char col_lgreen[]          = "#55f055";
+static const char col_dgreen[]          = "#008000";
+static const char *colors[][3]          = {
 	/* Scheme            fg          bg           border   */
 	[SchemeNorm]     = { col_gray3,  col_gray1,   col_black },
 	[SchemeSel]      = { col_gray4,  col_cyan,    "#230142" },
@@ -172,10 +172,10 @@ togglegaps(const Arg *arg)
   if (!selmon)
     return;
 	int *gap_size = &selmon->pertag->gaps[selmon->pertag->curtag];
-  if (*gap_size == gappx)
-		selmon->pertag->gaps[selmon->pertag->curtag] = opengap;
+  if (*gap_size == default_gaps)
+		selmon->pertag->gaps[selmon->pertag->curtag] = optional_gaps;
   else
-		selmon->pertag->gaps[selmon->pertag->curtag] = gappx;
+		selmon->pertag->gaps[selmon->pertag->curtag] = default_gaps;
   arrange(selmon);
 }
 
