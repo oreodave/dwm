@@ -2,5 +2,5 @@
 ;;; For more information see (info "(emacs) Directory Variables")
 
 ((c-mode . ((indent-tabs-mode . t)
-            (flycheck-mode    . -1)))
+            (flycheck-disabled-checkers c/c++-clang c/c++-gcc)))
  (nil    . ((compile-command  . "make && sudo make install && killall dwm"))))
