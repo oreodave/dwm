@@ -128,15 +128,18 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} }, //cmonocle
 	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} }, //cfmonocle
 	{ MODKEY|ShiftMask,             XK_s,      setlayout,      {.v = &layouts[5]} }, //fib-spiral
-	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[6]} }, //fib-spiral
+	{ MODKEY|ShiftMask,             XK_D,      setlayout,      {.v = &layouts[6]} }, //fib-dwindle
 	{ MODKEY|ShiftMask,             XK_g,      setlayout,      {.v = &layouts[7]} }, //gapless-grid
-	{ MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[8]} }, //deck
+	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[8]} }, //deck
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_m,      focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_n,      focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_m,      focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_Tab,    view,           {.ui = 0} }, \
+	{ MODKEY,                       XK_Tab,    view,           {.ui = 0} },
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

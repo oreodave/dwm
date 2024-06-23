@@ -75,63 +75,63 @@ command.
 Mod is set to Super (the "windows" key).
 .TP
 .B Mod\-b
-Toggle status bar
+Toggle status bar.
 
 .TP
 .B Mod\-`
 Toggle scratchpad terminal (set to
 .BR st(1)
-)
+).
 
 .TP
 .B Mod\-j
-Focus next window
+Focus next window.
 
 .TP
 .B Mod\-k
-Focus previous window
+Focus previous window.
 
 .TP
 .B Mod\-.
-Increase gap size by 5
+Increase gap size by 5.
 
 .TP
 .B Mod\-,
-Decrease gap size by 5
+Decrease gap size by 5.
 
 .TP
 .B Mod\-Control\-.
-Increase gap size by 1
+Increase gap size by 1.
 
 .TP
 .B Mod\-Control\-,
-Decrease gap size by 1
+Decrease gap size by 1.
 
 .TP
 .B Mod\-/
-Toggle gaps
+Toggle gaps (default value is set to 5).
 
 .TP
 .B Mod\-Shift\-/
 Print current gap value (using
 .BR notify-send(1)
-)
+).
 
 .TP
 .B Mod\-h
-Decrease size of master area
+Decrease size of master area.
 
 .TP
 .B Mod\-l
-Increase size of master are
+Increase size of master area.
 
 .TP
 .B Mod\-Control\-.
-Decrease number of master clients
+Decrease number of master clients.
 
 .TP
 .B Mod\-Control\-,
-Increase number of master clients
+Increase number of master clients.
 
 .TP
 .B Mod\-Shift\-h
@@ -143,97 +143,123 @@ Rotate the stack anticlockwise but keep focus on the same position.
 
 .TP
 .B Mod\-Shift\-k
-Rotate the master clients clockwise but keep focus on the same position.
+Rotate the master clients clockwise but keep focus on the same
+position.
 
 .TP
 .B Mod\-Shift\-j
-Rotate the master clients anticlockwise but keep focus on the same position.
+Rotate the master clients anticlockwise but keep focus on the same
+position.
 
 .TP
 .B Mod\-c
-If in stack area, swap currently focused client with master.  If in master area, swap currently focused client with top of stack area.
+Swap a window from the stack with the master.  If on the master, swap
+with the top of the stack.  If on a member of the stack, swap with
+master.
 
 .TP
 .B Mod\-Shift\-t
-Set layout to tiling
+Set layout to tiling.
 
 .TP
 .B Mod\-Shift\-f
-Set layout to floating
+Set layout to floating.
 
 .TP
 .B Mod\-Shift\-m
-Set layout to monocle
+Set layout to monocle.
 
 .TP
 .B Mod\-Shift\-u
-Set layout to centred monocle
+Set layout to centred monocle.
 
 .TP
 .B Mod\-Shift\-o
-Set layout to centred floating monocle
+Set layout to centred floating monocle.
 
 .TP
 .B Mod\-Shift\-s
-Set layout to spiral fibonacci
+Set layout to spiral fibonacci.
 
 .TP
-.B Mod\-Shift\-d
-Set layout to dwindle fibonacci
+.B Mod\-Shift\-D
+Set layout to dwindle fibonacci.
 
 .TP
 .B Mod\-Shift\-g
-Set layout to gapless grid
+Set layout to gapless grid.
 
 .TP
-.B Mod\-Shift\-i
-Set layout to deck
+.B Mod\-Shift\-d
+Set layout to deck layout.
 
 .TP
 .B Mod\-Shift\-space
-Toggle between current layout and previous layout
+Toggle between current layout and previous layout.
 
 .TP
 .B Mod\-space
-Toggle current client's floating (floating -> not floating, not floating -> floating)
+Toggle current client's floating (floating -> not floating, not
+floating -> floating).
 
 .TP
-.B Mod1\-[1..n]
-Go to nth tag
+.B Mod1\-<x in [1..n]>
+Go to xth tag.
 
 .TP
-.B Mod1\-Shift\-[1..n]
-Send focused client to nth tag.
+.B Mod1\-Shift\-<x in [1..n]>
+Tag focused client, clearing all other tags.
 
 .TP
-.B Mod\-m
-Focus on the next monitor in monitor stack
+.B Mod1\-Control\-<x in [1..n]>
+View the xth tag.
 
 .TP
-.B Mod\-Shift\-,
-Send client to previous monitor in monitor stack
+.B Mod1\-Control\-Shift\-<x in [1..n]>
+Tag the focused client but preserve tags.
 
 .TP
-.B Mod\-Shift\-.
-Send client to next monitor in monitor stack
+.B Mod1\-0
+View all tags.
+
+.TP
+.B Mod1\-Shift\-0
+Tag focused client with all tags.
 
 .TP
 .B Mod\-Tab
-View the previous tag
+View the previous tag.
+
+.TP
+.B Mod\-n
+Focus on the next monitor in monitor stack.
+
+.TP
+.B Mod\-m
+Focus on the next monitor in monitor stack.
+
+.TP
+.B Mod\-Shift\-,
+Send client to previous monitor in monitor stack.
+
+.TP
+.B Mod\-Shift\-.
+Send client to next monitor in monitor stack.
 
 .TP
 .B Mod\-q
-Kill the currently focused client
+Kill the currently focused client.
 
 .TP
 .B Mod\-Shift\-q
-Kill dwm
+Kill dwm.
 
 .SS Mouse commands
 
 .TP
 .B Mod1\-Button1
-Move focused window while dragging. Tiled windows will be toggled to the floating state.
+Move focused window while dragging. Tiled windows will be toggled to
+the floating state.
 
 .TP
 .B Mod1\-Button2
@@ -241,19 +267,21 @@ Toggles focused window between floating and tiled state.
 
 .TP
 .B Mod1\-Button3
-Resize focused window while dragging. Tiled windows will be toggled to the floating state.
+Resize focused window while dragging. Tiled windows will be toggled to
+the floating state.
 
 .SH CUSTOMIZATION
-dwm is customized by creating a custom config.h and (re)compiling the source
-code. This keeps it fast, secure and simple.
+dwm is customised by creating a custom config.h and (re)compiling the
+source code. This keeps it fast, secure and simple.
 .SH SEE ALSO
 .BR dmenu (1),
 .BR st (1)
 .SH ISSUES
-Java applications which use the XToolkit/XAWT backend may draw grey windows
-only. The XToolkit/XAWT backend breaks ICCCM-compliance in recent JDK 1.5 and early
-JDK 1.6 versions, because it assumes a reparenting window manager. Possible workarounds
-are using JDK 1.4 (which doesn't contain the XToolkit/XAWT backend) or setting the
+Java applications which use the XToolkit/XAWT backend may draw grey
+windows only. The XToolkit/XAWT backend breaks ICCCM-compliance in
+recent JDK 1.5 and early JDK 1.6 versions, because it assumes a
+reparenting window manager. Possible workarounds are using JDK 1.4
+(which doesn't contain the XToolkit/XAWT backend) or setting the
 environment variable
 .BR AWT_TOOLKIT=MToolkit
 (to use the older Motif backend instead) or running
@@ -261,7 +289,8 @@ environment variable
 or
 .B wmname LG3D
 (to pretend that a non-reparenting window manager is running that the
-XToolkit/XAWT backend can recognize) or when using OpenJDK setting the environment variable
+XToolkit/XAWT backend can recognize) or when using OpenJDK setting the
+environment variable
 .BR _JAVA_AWT_WM_NONREPARENTING=1 .
 .SH BUGS
 Send all bug reports with a patch to hackers@suckless.org.
