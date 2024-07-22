@@ -69,8 +69,10 @@ prints version information to stderr, then exits.
 .TP
 .B X root window name
 is read and displayed in the status text area. It can be set with the
-.BR xsetroot (1).  This fork uses dwmblocks to generate system status information.
-command.
+.BR xsetroot (1).
+This fork uses
+.BR dwmblocks (1)
+to generate system status information.
 .SS Keyboard commands
 Mod is set to Super (the "windows" key).
 .TP
@@ -274,6 +276,7 @@ the floating state.
 dwm is customised by creating a custom config.h and (re)compiling the
 source code. This keeps it fast, secure and simple.
 .SH SEE ALSO
+.BR dwmblocks (1),
 .BR dmenu (1),
 .BR st (1)
 .SH ISSUES
@@ -293,4 +296,5 @@ XToolkit/XAWT backend can recognize) or when using OpenJDK setting the
 environment variable
 .BR _JAVA_AWT_WM_NONREPARENTING=1 .
 .SH BUGS
-Send all bug reports with a patch to hackers@suckless.org.
+Send all bug reports with a patch to hackers@suckless.org or
+aryadev@aryadevchavali.com
