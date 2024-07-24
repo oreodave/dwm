@@ -1,0 +1,37 @@
+From 7c67af1e810d549c9a85525498217fc40bd92e27 Mon Sep 17 00:00:00 2001
+From: Aryadev Chavali <aryadev@aryadevchavali.com>
+Date: Wed, 24 Jul 2024 16:21:12 +0100
+Subject: [PATCH] Defer focusing on sticky windows on switching tags
+
+focus(NULL) is called when switching to a new tag or monitor.  I don't
+want sticky windows to get first focus in this situation, hence this
+code.  Shamelessly stolen from
+https://github.com/LukeSmithxyz/dwm/issues/152.
+---
+ dwm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/dwm.c b/dwm.c
+index 1a88bf2..0445327 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -906,8 +906,14 @@ expose(XEvent *e)
+ void
+ focus(Client *c)
+ {
+-	if (!c || !ISVISIBLE(c))
+-		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
++	if (!c || !ISVISIBLE(c)) {
++		for (c = selmon->stack; c &&
++					 (!ISVISIBLE(c) || (c->issticky && !selmon->sel->issticky));
++				 c = c->snext);
++		if (!c) /* No windows found; check for available stickies */
++			for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
++	}
++
+ 	if (selmon->sel && selmon->sel != c)
+ 		unfocus(selmon->sel, 0);
+ 	if (c) {
+-- 
+2.45.2
+
