@@ -8,8 +8,7 @@
 /* appearance */
 static const unsigned int borderpx      = 0;    /* border pixel of windows */
 static const unsigned int snap          = 32;   /* snap pixel */
-static const unsigned int optional_gaps = 20;   /* optional gaps between windows */
-static const unsigned int default_gaps  = 0;    /* default gaps between windows */
+static const int default_gaps           = 20;   /* default value of gaps_previous */
 static const int showbar                = true; /* 0 means no bar */
 static const int topbar                 = 0;    /* 0 means bottom bar */
 static const char *fonts[]              = { "Noto Sans Mono:size=13" };
@@ -173,14 +172,15 @@ static const Button buttons[] = {
 void
 togglegaps(const Arg *arg)
 {
-  if (!selmon)
-    return;
-	int *gap_size = &selmon->pertag->gaps[selmon->pertag->curtag];
-  if (*gap_size == default_gaps)
-		selmon->pertag->gaps[selmon->pertag->curtag] = optional_gaps;
-  else
-		selmon->pertag->gaps[selmon->pertag->curtag] = default_gaps;
-  arrange(selmon);
+	if (!selmon)
+		return;
+	int *gaps_current = selmon->pertag->gaps_current + selmon->pertag->curtag;
+	int *gaps_previous = selmon->pertag->gaps_previous + selmon->pertag->curtag;
+	// Swap the current gaps and the previous gaps
+	int temp = *gaps_current;
+	*gaps_current = *gaps_previous;
+	*gaps_previous = temp;
+	arrange(selmon);
 }
 
 void
@@ -190,7 +190,7 @@ printgaps(const Arg *arg)
     return;
   char *cmd = malloc(sizeof(*cmd) * 38);
   sprintf(cmd, "notify-send -u low \"Gaps=%d\"",
-					selmon->pertag->gaps[selmon->pertag->curtag]);
+					selmon->pertag->gaps_current[selmon->pertag->curtag]);
   system(cmd);
 	free(cmd);
 }

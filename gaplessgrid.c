@@ -15,7 +15,7 @@ gaplessgrid(Monitor *m) {
 		cols = 2;
 	rows = n/cols;
 
-	const int gap_size = m->pertag->gaps[m->pertag->curtag];
+	const int gap_size = m->pertag->gaps_current[m->pertag->curtag];
 	/* window geometries */
 	cw = cols ? m->ww / cols : m->ww;
 	cn = 0; /* current column number */

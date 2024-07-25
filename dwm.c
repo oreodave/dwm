@@ -287,13 +287,14 @@ static Window root, wmcheckwin;
 // TODO: Figure out if there is a better way of doing this
 #define TAG_SIZE 9
 struct Pertag {
-	unsigned int curtag, prevtag; /* current and previous tag */
-	int nmasters[TAG_SIZE + 1]; /* number of windows in master area */
-	float mfacts[TAG_SIZE + 1]; /* mfacts per tag */
-	unsigned int sellts[TAG_SIZE + 1]; /* selected layouts */
-	const Layout *ltidxs[TAG_SIZE + 1][2]; /* matrix of tags and layouts indexes  */
-	int showbars[TAG_SIZE + 1]; /* display bar for the current tag */
-	int gaps[TAG_SIZE + 1];     /* current size of gaps */
+	unsigned int curtag, prevtag;          /* current and previous tag */
+	int nmasters[TAG_SIZE + 1];            /* number of windows in master area */
+	float mfacts[TAG_SIZE + 1];            /* mfacts per tag */
+	unsigned int sellts[TAG_SIZE + 1];     /* selected layouts */
+	const Layout *ltidxs[TAG_SIZE + 1][2]; /* matrix of tags and layouts indexes */
+	int showbars[TAG_SIZE + 1];            /* display bar for the current tag */
+	int gaps_current[TAG_SIZE + 1];        /* current size of gaps */
+	int gaps_previous[TAG_SIZE + 1];       /* previous size of gaps */
 };
 
 #include "config.h"
@@ -719,14 +720,15 @@ createmon(void)
 
 	for (i = 0; i <= LENGTH(tags); i++) {
 		m->pertag->nmasters[i] = m->nmaster;
-		m->pertag->mfacts[i] = m->mfact;
+		m->pertag->mfacts[i]   = m->mfact;
 
 		m->pertag->ltidxs[i][0] = m->lt[0];
 		m->pertag->ltidxs[i][1] = m->lt[1];
-		m->pertag->sellts[i] = m->sellt;
+		m->pertag->sellts[i]    = m->sellt;
 
-		m->pertag->showbars[i] = m->showbar;
-		m->pertag->gaps[i] = default_gaps;
+		m->pertag->showbars[i]      = m->showbar;
+		m->pertag->gaps_current[i]  = 0;
+		m->pertag->gaps_previous[i] = default_gaps;
 	}
 
 	return m;
@@ -760,7 +762,7 @@ deck(Monitor *m) {
 		ns = 1;
 	}
 
-	gap_size = m->pertag->gaps[m->pertag->curtag];
+	gap_size = m->pertag->gaps_current[m->pertag->curtag];
 	for(i = 0, my = gap_size, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if(i < m->nmaster) {
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gap_size;
@@ -1252,7 +1254,7 @@ monocle(Monitor *m)
 			n++;
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-	const int gap_size = m->pertag->gaps[m->pertag->curtag];
+	const int gap_size = m->pertag->gaps_current[m->pertag->curtag];
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
 		resize(c, m->wx + gap_size, m->wy + gap_size,
 					 m->ww - 2 * c->bw - (2 * gap_size),
@@ -1661,11 +1663,11 @@ setsticky(Client *c, int sticky)
 void
 setgaps(const Arg *arg)
 {
-	int *gap_size = &selmon->pertag->gaps[selmon->pertag->curtag];
-	if ((arg->i == 0) || ((*gap_size) + arg->i < 0))
-		*gap_size = 0;
+	int *gaps_current = selmon->pertag->gaps_current + selmon->pertag->curtag;
+	if ((arg->i == 0) || (*gaps_current + arg->i < 0))
+		*gaps_current = 0;
 	else
-		*gap_size += arg->i;
+		*gaps_current += arg->i;
 	arrange(selmon);
 }
 
@@ -1855,7 +1857,7 @@ tile(Monitor *m)
 	if (n == 0)
 		return;
 
-	const int gap_size = m->pertag->gaps[m->pertag->curtag];
+	const int gap_size = m->pertag->gaps_current[m->pertag->curtag];
 	if (n > m->nmaster)
 		mw = m->nmaster ? m->ww * m->mfact : 0;
 	else
