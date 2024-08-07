@@ -7,3 +7,4 @@ tmp/
 *.o
 dwm
 .ccls-cache
+TAGS
