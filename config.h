@@ -8,12 +8,12 @@
 /* appearance */
 static const unsigned int borderpx      = 0;    /* border pixel of windows */
 static const unsigned int snap          = 32;   /* snap pixel */
-static const int default_gaps           = 20;   /* default value of gaps_previous */
+static const int default_gaps           = 40;   /* default value of gaps_previous */
 static const int showbar                = true; /* 0 means no bar */
 static const int topbar                 = 0;    /* 0 means bottom bar */
 static const char *fonts[]              = { "Noto Sans Mono:size=13" };
 static const char dmenufont[]           = "monospace:size=9";
-static const char col_black[]           = "#161616";
+static const char col_black[]           = "#000000";
 static const char col_gray1[]           = "#222222";
 static const char col_gray2[]           = "#444444";
 static const char col_gray3[]           = "#bbbbbb";
@@ -25,13 +25,13 @@ static const char col_lgreen[]          = "#55f055";
 static const char col_dgreen[]          = "#008000";
 static const char *colors[][3]          = {
 	/* Scheme            fg          bg           border   */
-	[SchemeNorm]     = { col_gray3,  col_gray1,   col_black },
+	[SchemeNorm]     = { col_gray3,  col_black,   col_black },
 	[SchemeSel]      = { col_gray4,  col_cyan,    "#230142" },
 	[SchemeStatus]   = { col_lblue,  col_black,   col_black },
 	[SchemeTagsSel]  = { col_gray4,  col_dblue,   col_black },
 	[SchemeTagsNorm] = { col_lblue,  col_black,   col_black },
 	[SchemeInfoSel]  = { col_gray4,  col_black,   col_black },
-	[SchemeInfoNorm] = { col_gray3,  col_gray1,   col_black },
+	[SchemeInfoNorm] = { col_gray3,  col_black,   col_black },
 };
 
 /* tagging */
@@ -94,8 +94,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-e", "tmux",
-  NULL };
+static const char *scratchpadcmd[] = { "emacs", "-T", scratchpadname, "-g", "250x65+0+0", "--eval", "(+scratchpad-setup)", NULL };
 
 static char *statuscmds[] = { "notify-send Mouse$BUTTON" };
 
