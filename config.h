@@ -118,6 +118,10 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,      inplacerotate,  {.i = -1} },
 	{ MODKEY|ShiftMask,             XK_h,      inplacerotate,  {.i = -2} },
 	{ MODKEY|ShiftMask,             XK_l,      inplacerotate,  {.i = +2} },
+	{ MODKEY|ControlMask,           XK_l,      movekeyboard_x, {.i = 20}},
+	{ MODKEY|ControlMask,           XK_h,      movekeyboard_x, {.i = -20}},
+	{ MODKEY|ControlMask,           XK_j,      movekeyboard_y, {.i = 20}},
+	{ MODKEY|ControlMask,           XK_k,      movekeyboard_y, {.i = -20}},
 	{ MODKEY|ControlMask,           XK_s,      togglesticky,   {0} },
 	{ MODKEY,                       XK_c,      zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} }, //tiling
