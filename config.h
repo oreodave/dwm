@@ -94,7 +94,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "emacs", "-T", scratchpadname, "-g", "250x65+0+0", "--eval", "(+scratchpad-setup)", NULL };
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-e", "tmux", NULL };
 
 static char *statuscmds[] = { "notify-send Mouse$BUTTON" };
 
