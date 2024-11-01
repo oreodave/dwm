@@ -729,8 +729,8 @@ createmon(void)
 		m->pertag->sellts[i]    = m->sellt;
 
 		m->pertag->showbars[i]      = m->showbar;
-		m->pertag->gaps_current[i]  = 0;
-		m->pertag->gaps_previous[i] = default_gaps;
+		m->pertag->gaps_current[i]  = default_gaps;
+		m->pertag->gaps_previous[i] = 0;
 	}
 
 	return m;
