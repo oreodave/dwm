@@ -6,24 +6,24 @@
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx      = 0;    /* border pixel of windows */
-static const unsigned int snap          = 32;   /* snap pixel */
-static const int default_gaps           = 40;   /* default value of gaps_previous */
-static const int showbar                = true; /* 0 means no bar */
-static const int topbar                 = 0;    /* 0 means bottom bar */
-static const char *fonts[]              = { "Noto Sans Mono:size=13" };
-static const char dmenufont[]           = "monospace:size=9";
-static const char col_black[]           = "#000000";
-static const char col_gray1[]           = "#222222";
-static const char col_gray2[]           = "#444444";
-static const char col_gray3[]           = "#bbbbbb";
-static const char col_gray4[]           = "#eeeeee";
-static const char col_cyan[]            = "#005577";
-static const char col_lblue[]           = "#77aafc";
-static const char col_dblue[]           = "#225599";
-static const char col_lgreen[]          = "#55f055";
-static const char col_dgreen[]          = "#008000";
-static const char *colors[][3]          = {
+static const unsigned int borderpx = 0;    /* border pixel of windows */
+static const unsigned int snap     = 16;   /* snap pixel */
+static const int default_gaps      = 50;   /* default value of gaps_previous */
+static const int showbar           = true; /* 0 means no bar */
+static const int topbar            = 0;    /* 0 means bottom bar */
+static const char *fonts[]         = { "Noto Sans Mono:size=12" };
+static const char dmenufont[]      = "monospace:size=9";
+static const char col_black[]      = "#000000";
+static const char col_gray1[]      = "#222222";
+static const char col_gray2[]      = "#444444";
+static const char col_gray3[]      = "#bbbbbb";
+static const char col_gray4[]      = "#eeeeee";
+static const char col_cyan[]       = "#005577";
+static const char col_lblue[]      = "#77aafc";
+static const char col_dblue[]      = "#225599";
+static const char col_lgreen[]     = "#55f055";
+static const char col_dgreen[]     = "#008000";
+static const char *colors[][3]     = {
 	/* Scheme            fg          bg           border   */
 	[SchemeNorm]     = { col_gray3,  col_black,   col_black },
 	[SchemeSel]      = { col_gray4,  col_cyan,    "#230142" },
