@@ -11,8 +11,8 @@ dwm is an extremely fast, small, and dynamic window manager for X.
 
 Requirements
 ============
-  In order to build dwm you need the Xlib header files.  Optionally you
-  will also need xinerama.
+  In order to build dwm you need the Xlib header files.  Optionally
+  you will also need xinerama.
 
 Installation
 ============
@@ -33,25 +33,25 @@ Running dwm
   `----
 
   In order to connect dwm to a specific display, make sure that the
-  DISPLAY environment variable is set correctly.  For example, to start
-  dwm on the host foo.bar on display 1:
+  DISPLAY environment variable is set correctly.  For example, to
+  start dwm on the host foo.bar on display 1:
   ,----
   | DISPLAY=foo.bar:1 exec dwm
   `----
 
-  When editing and compiling this project, it may be cumbersome to
-  restart dwm.  By adding the following to your .xinitrc, one may
-  restart dwm simply by killing the process, which will be immediately
-  spawned again by the XServer.
+  When hacking on the source code, it may be cumbersome to restart
+  dwm.  By adding the following to your .xinitrc, one may restart dwm
+  simply by killing the process, which will be immediately spawned
+  again by the XServer.
   ,----
   | while :
   | do
   |     dwm
   | done
   `----
-  Any applications will still exist after dwm is restarted, but may not
-  laid out before the restart.  Refer to the `rules` variable in
-  config.h for automatic layout control.
+  Any applications will still exist after dwm is restarted, but may
+  not laid out the same as before the restart.  Refer to the `rules`
+  variable in config.h for automatic layout control.
 
 Configuration
 =============
