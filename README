@@ -50,8 +50,8 @@ Running dwm
   | done
   `----
   Any applications will still exist after dwm is restarted, but may
-  not laid out the same as before the restart.  Refer to the `rules`
-  variable in config.h for automatic layout control.
+  not be arranged the same as before the restart.  Refer to the
+  `rules` variable in config.h for automatic layout control.
 
 Configuration
 =============
