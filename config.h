@@ -49,10 +49,10 @@ static const Rule rules[] = {
 	 */
 	/* class         instance   title   tags mask     isfloating   monitor */
 	{ "Gimp",        NULL,      NULL,   0,            1,           -1 },
-	{ "mpv",         NULL,      NULL,   GTMask(3),    0,           -1 },
 	{ "Onboard",     NULL,      NULL,   0,            0,           -1 },
-	{ "firefox",     NULL,      NULL,   GTMask(2),    0,           -1 },
+	{ "waterfox",    NULL,      NULL,   GTMask(2),    0,           -1 },
 	{ "Chromium",    NULL,      NULL,   GTMask(2),    0,           -1 },
+	{ "mpv",         NULL,      NULL,   GTMask(3),    0,           -1 },
 	{ "Spotify",     NULL,      NULL,   GTMask(3),    0,           -1 },
 	{ "Zathura",     NULL,      NULL,   GTMask(4),    0,           -1 },
 };
@@ -187,7 +187,7 @@ printgaps(const Arg *arg)
   if (!selmon)
     return;
   char *cmd = malloc(sizeof(*cmd) * 38);
-  sprintf(cmd, "notify-send -u low \"Gaps=%d\"",
+  snprintf(cmd, 38, "notify-send -u low \"Gaps=%d\"",
 					selmon->pertag->gaps_current[selmon->pertag->curtag]);
   system(cmd);
 	free(cmd);
