@@ -1,0 +1,5 @@
+#+title: DWM tasks
+#+filetags: :dwm:
+
+* TODO Make printing of names in status bar better
+[[file:dwm.c::if ((w = m->ww - tw - x) > bh) {]]
