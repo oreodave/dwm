@@ -47,14 +47,17 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class         instance   title   tags mask     isfloating   monitor */
-	{ "Gimp",        NULL,      NULL,   0,            1,           -1 },
-	{ "Onboard",     NULL,      NULL,   0,            0,           -1 },
-	{ "waterfox",    NULL,      NULL,   GTMask(2),    0,           -1 },
-	{ "Chromium",    NULL,      NULL,   GTMask(2),    0,           -1 },
-	{ "mpv",         NULL,      NULL,   GTMask(3),    0,           -1 },
-	{ "Spotify",     NULL,      NULL,   GTMask(3),    0,           -1 },
-	{ "Zathura",     NULL,      NULL,   GTMask(4),    0,           -1 },
+	/* class                            instance   title   tags mask     isfloating   monitor */
+	{ "Gimp",                           NULL,      NULL,   0,            1,           -1 },
+	{ "Onboard",                        NULL,      NULL,   0,            0,           -1 },
+	{ "waterfox",                       NULL,      NULL,   GTMask(2),    0,           -1 },
+	{ "Chromium",                       NULL,      NULL,   GTMask(2),    0,           -1 },
+	{ "mpv",                            NULL,      NULL,   GTMask(3),    0,           -1 },
+	{ "Spotify",                        NULL,      NULL,   GTMask(3),    0,           -1 },
+	{ "steam",                          NULL,      NULL,   GTMask(3),    0,           -1 },
+	{ "discord",                        NULL,      NULL,   GTMask(3),    0,           -1 },
+	{ "Zathura",                        NULL,      NULL,   GTMask(4),    0,           -1 },
+	{ "com.github.xournalpp.xournalpp", NULL,      NULL,   GTMask(5),    0,           -1 }
 };
 
 /* layout(s) */
@@ -109,6 +112,7 @@ static const Key keys[] = {
 	{ MODKEY,              XK_l,      setmfact,       {.f = +0.01} },
 	{ MODKEY|ControlMask,  XK_period, incnmaster,     {.i = -1 } },
 	{ MODKEY|ControlMask,  XK_comma,  incnmaster,     {.i = +1 } },
+	{ MODKEY,              XK_c,      zoom,           {0} },
 	{ MODKEY|ShiftMask,    XK_k,      inplacerotate,  {.i = +1} },
 	{ MODKEY|ShiftMask,    XK_j,      inplacerotate,  {.i = -1} },
 	{ MODKEY|ShiftMask,    XK_h,      inplacerotate,  {.i = -2} },
@@ -118,16 +122,15 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,  XK_j,      movekeyboard_y, {.i = 32}},
 	{ MODKEY|ControlMask,  XK_k,      movekeyboard_y, {.i = -32}},
 	{ MODKEY|ControlMask,  XK_s,      togglesticky,   {0} },
-	{ MODKEY,              XK_c,      zoom,           {0} },
 	{ MODKEY|ShiftMask,    XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,    XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ShiftMask,    XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,    XK_u,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,    XK_o,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|ShiftMask,    XK_s,      setlayout,      {.v = &layouts[5]} },
-	{ MODKEY|ShiftMask,    XK_D,      setlayout,      {.v = &layouts[6]} },
-	{ MODKEY|ShiftMask,    XK_g,      setlayout,      {.v = &layouts[7]} },
 	{ MODKEY|ShiftMask,    XK_d,      setlayout,      {.v = &layouts[8]} },
+	// { MODKEY|ShiftMask,    XK_u,      setlayout,      {.v = &layouts[3]} },
+	// { MODKEY|ShiftMask,    XK_s,      setlayout,      {.v = &layouts[5]} },
+	// { MODKEY|ShiftMask,    XK_D,      setlayout,      {.v = &layouts[6]} },
+	// { MODKEY|ShiftMask,    XK_g,      setlayout,      {.v = &layouts[7]} },
 	{ MODKEY|ShiftMask,    XK_space,  setlayout,      {0} },
 	{ MODKEY,              XK_space,  togglefloating, {0} },
 	{ MODKEY,              XK_n,      focusmon,       {.i = -1 } },
