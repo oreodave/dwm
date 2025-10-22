@@ -71,9 +71,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[T]=",     tile },    /* first entry is default */
+	{ "{M}",      monocle }, /* first entry is default */
+	{ "[T]=",     tile },
 	{ "<F>=",     NULL },    /* no layout function means floating behavior */
-	{ "{M}",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
 	{ "[@]",      spiral },
@@ -92,7 +92,13 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-e", "tmux", NULL };
+static const char *scratchpadcmd[] = {
+	"st",
+	"-t", scratchpadname,
+	"-g", "100x40",
+	"-e", "tmux",
+	NULL
+};
 
 static char *statuscmds[] = { "notify-send Mouse$BUTTON" };
 
@@ -122,9 +128,9 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,  XK_j,      movekeyboard_y, {.i = 32}},
 	{ MODKEY|ControlMask,  XK_k,      movekeyboard_y, {.i = -32}},
 	{ MODKEY|ControlMask,  XK_s,      togglesticky,   {0} },
-	{ MODKEY|ShiftMask,    XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,    XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY|ShiftMask,    XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,    XK_m,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,    XK_t,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ShiftMask,    XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,    XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,    XK_d,      setlayout,      {.v = &layouts[8]} },
 	// { MODKEY|ShiftMask,    XK_u,      setlayout,      {.v = &layouts[3]} },
@@ -187,11 +193,11 @@ togglegaps(const Arg *arg)
 void
 printgaps(const Arg *arg)
 {
-  if (!selmon)
-    return;
-  char *cmd = malloc(sizeof(*cmd) * 38);
-  snprintf(cmd, 38, "notify-send -u low \"Gaps=%d\"",
-					selmon->pertag->gaps_current[selmon->pertag->curtag]);
-  system(cmd);
+	if (!selmon)
+		return;
+	char *cmd = malloc(sizeof(*cmd) * 38);
+	snprintf(cmd, 38, "notify-send -u low \"Gaps=%d\"",
+					 selmon->pertag->gaps_current[selmon->pertag->curtag]);
+	system(cmd);
 	free(cmd);
 }
