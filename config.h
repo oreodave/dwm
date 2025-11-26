@@ -27,7 +27,7 @@ static const char col_dgreen[]     = "#008000";
 static const char *colors[][3]     = {
 	/* Scheme            fg          bg           border   */
 	[SchemeNorm]     = { col_gray3,  col_black,   col_black },
-	[SchemeSel]      = { col_white,  col_black,   "#000077" },
+	[SchemeSel]      = { col_white,  col_black,   col_white },
 	[SchemeStatus]   = { col_white,  col_black,   col_black },
 	[SchemeTagsSel]  = { col_white,  col_gray2,   col_black },
 	[SchemeTagsNorm] = { col_white,  col_black,   col_black },
