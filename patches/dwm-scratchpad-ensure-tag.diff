@@ -1,0 +1,36 @@
+From 51f755111bf1df9ae0dea686a31d2930c723c8b4 Mon Sep 17 00:00:00 2001
+From: Aryadev Chavali <aryadev@aryadevchavali.com>
+Date: Wed, 26 Nov 2025 03:51:45 +0000
+Subject: [PATCH] scratchpad: Ensure new clients spawned by scratchpad go to
+ underlying tag
+
+Came from following: https://prithu.dev/posts/debugging-dwm/.  An
+issue I thought I had to live with is actually trivial to fix!  Full
+credit to them.
+---
+ dwm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dwm.c b/dwm.c
+index 719adb3..9e8c3b3 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1177,6 +1177,7 @@ manage(Window w, XWindowAttributes *wa)
+ 	c->oldbw = wa->border_width;
+ 
+ 	updatetitle(c);
++	selmon->tagset[selmon->seltags] &= ~scratchtag;
+ 	if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
+ 		c->mon = t->mon;
+ 		c->tags = t->tags;
+@@ -1193,7 +1194,6 @@ manage(Window w, XWindowAttributes *wa)
+ 	c->y = MAX(c->y, c->mon->wy);
+ 	c->bw = borderpx;
+ 
+-	selmon->tagset[selmon->seltags] &= ~scratchtag;
+ 	if (!strcmp(c->name, scratchpadname)) {
+ 		c->mon->tagset[c->mon->seltags] |= c->tags = scratchtag;
+ 		c->isfloating = True;
+-- 
+2.51.2
+
