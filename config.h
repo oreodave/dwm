@@ -6,7 +6,7 @@
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx = 4;    /* border pixel of windows */
+static const unsigned int borderpx = 1;    /* border pixel of windows */
 static const unsigned int snap     = 16;   /* snap pixel */
 static const int default_gaps      = 50;   /* default value of gaps_previous */
 static const int showbar           = true; /* 0 means no bar */
