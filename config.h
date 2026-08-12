@@ -53,7 +53,6 @@ static const Rule rules[] = {
 	{ "Onboard",                        NULL,      NULL,   0,            0,           -1 },
 	{ "waterfox",                       NULL,      NULL,   GTMask(2),    0,           -1 },
 	{ "Chromium",                       NULL,      NULL,   GTMask(2),    0,           -1 },
-	{ "mpv",                            NULL,      NULL,   GTMask(3),    0,           -1 },
 	{ "Spotify",                        NULL,      NULL,   GTMask(3),    0,           -1 },
 	{ "steam",                          NULL,      NULL,   GTMask(3),    0,           -1 },
 	{ "discord",                        NULL,      NULL,   GTMask(3),    0,           -1 },
