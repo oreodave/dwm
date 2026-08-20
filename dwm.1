@@ -91,7 +91,7 @@ Decrease gap size by 1.
 
 .TP
 .B Mod\-/
-Toggle gaps (default value is set to 5).
+Toggle gaps (default value is set to 50).
 
 .TP
 .B Mod\-Shift\-/
@@ -140,6 +140,16 @@ with the top of the stack.  If on a member of the stack, swap with
 master.
 
 .TP
+.B Mod\-Control\-h/j/k/l
+Move the focused window left/down/up/right by 32 pixels.  NOTE: this
+only works on floating windows; anything that is managed by the tiling
+layout will not be affected by this.
+
+.TP
+.B Mod\-Control\-s
+Toggle the focused window's sticky state.
+
+.TP
 .B Mod\-Shift\-t
 Set layout to tiling.
 
@@ -165,27 +175,27 @@ Toggle current client's floating (floating -> not floating, not
 floating -> floating).
 
 .TP
-.B Mod1\-<x in [1..n]>
+.B Mod\-<x in [1..n]>
 Go to xth tag.
 
 .TP
-.B Mod1\-Shift\-<x in [1..n]>
+.B Mod\-Shift\-<x in [1..n]>
 Tag focused client, clearing all other tags.
 
 .TP
-.B Mod1\-Control\-<x in [1..n]>
-View the xth tag.
+.B Mod\-Control\-<x in [1..n]>
+Toggle viewing the xth tag.
 
 .TP
-.B Mod1\-Control\-Shift\-<x in [1..n]>
+.B Mod\-Control\-Shift\-<x in [1..n]>
 Tag the focused client but preserve tags.
 
 .TP
-.B Mod1\-0
+.B Mod\-0
 View all tags.
 
 .TP
-.B Mod1\-Shift\-0
+.B Mod\-Shift\-0
 Tag focused client with all tags.
 
 .TP
@@ -194,7 +204,7 @@ View the previous tag.
 
 .TP
 .B Mod\-n
-Focus on the next monitor in monitor stack.
+Focus on the previous monitor in monitor stack.
 
 .TP
 .B Mod\-m
@@ -219,16 +229,16 @@ Kill dwm.
 .SS Mouse commands
 
 .TP
-.B Mod1\-Button1
+.B Mod\-Button1
 Move focused window while dragging. Tiled windows will be toggled to
 the floating state.
 
 .TP
-.B Mod1\-Button2
+.B Mod\-Button2
 Toggles focused window between floating and tiled state.
 
 .TP
-.B Mod1\-Button3
+.B Mod\-Button3
 Resize focused window while dragging. Tiled windows will be toggled to
 the floating state.
 
