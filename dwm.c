@@ -223,6 +223,7 @@ static void togglefloating(const Arg *arg);
 static void togglesticky(const Arg *arg);
 static void togglescratch(const Arg *arg);
 static void toggletag(const Arg *arg);
+static void togglegaps(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
 static void unmanage(Client *c, int destroyed);
@@ -2035,6 +2036,21 @@ toggletag(const Arg *arg)
 		arrange(selmon);
 	}
 }
+
+void
+togglegaps(const Arg *arg)
+{
+	if (!selmon)
+		return;
+	int *gaps_current = selmon->pertag->gaps_current + selmon->pertag->curtag;
+	int *gaps_previous = selmon->pertag->gaps_previous + selmon->pertag->curtag;
+	// Swap the current gaps and the previous gaps
+	int temp = *gaps_current;
+	*gaps_current = *gaps_previous;
+	*gaps_previous = temp;
+	arrange(selmon);
+}
+
 
 void
 toggleview(const Arg *arg)

@@ -40,7 +40,6 @@ static const char *colors[][3]     = {
 static const char *tags[] = { "", "", "", "", "", "6", "7", "8", "9" };
 
 /* Custom functions */
-static void togglegaps(const Arg *arg);
 static void printgaps(const Arg *arg);
 
 static const Rule rules[] = {
@@ -134,6 +133,8 @@ static const Key keys[] = {
 	{ MODKEY,              XK_Tab,          view,           {.ui = 0} },
 	{ MODKEY,              XK_0,            view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,    XK_0,            tag,            {.ui = ~0 } },
+	{ MODKEY,              XK_q,            killclient,     {0} },
+	{ MODKEY|ShiftMask,    XK_q,            quit,           {0} },
 	TAGKEYS(               XK_1,                      0)
 	TAGKEYS(               XK_2,                      1)
 	TAGKEYS(               XK_3,                      2)
@@ -143,8 +144,6 @@ static const Key keys[] = {
 	TAGKEYS(               XK_7,                      6)
 	TAGKEYS(               XK_8,                      7)
 	TAGKEYS(               XK_9,                      8)
-	{ MODKEY,              XK_q,      killclient,     {0} },
-	{ MODKEY|ShiftMask,    XK_q,      quit,           {0} },
 };
 
 /* button definitions */
@@ -163,20 +162,6 @@ static const Button buttons[] = {
 	{ ClkTagBar,    MODKEY,     Button1,  tag,            {0} },
 	{ ClkTagBar,    MODKEY,     Button3,  toggletag,      {0} },
 };
-
-void
-togglegaps(const Arg *arg)
-{
-	if (!selmon)
-		return;
-	int *gaps_current = selmon->pertag->gaps_current + selmon->pertag->curtag;
-	int *gaps_previous = selmon->pertag->gaps_previous + selmon->pertag->curtag;
-	// Swap the current gaps and the previous gaps
-	int temp = *gaps_current;
-	*gaps_current = *gaps_previous;
-	*gaps_previous = temp;
-	arrange(selmon);
-}
 
 void
 printgaps(const Arg *arg)
