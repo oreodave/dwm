@@ -5,39 +5,31 @@ dwm \- dynamic window manager
 .B dwm
 .RB [ \-v ]
 .SH DESCRIPTION
-dwm is a dynamic window manager for X.  It manages windows in a
-variety of layouts:
+dwm is a dynamic window manager for X.  It manages windows in a variety of
+layouts:
 .nr PI 1n
 .IP \[bu]
-floating: windows can be resized and moved freely, a la usual window
-managers.
+floating: windows can be resized and moved freely, a la usual window managers.
 .IP \[bu]
-tiled: windows are managed in a master and stacking area.  The master
-area on the left contains one window by default, and the stacking area
-on the right contains all other windows.  The number of master area
-windows can be adjusted from zero to an arbitrary number.
+tiled: windows are managed in a master and stacking area.  The master area on
+the left contains one window by default, and the stacking area on the right
+contains all other windows.  The number of master area windows can be adjusted
+from zero to an arbitrary number.
 .IP \[bu]
-monocle: all windows are maximised to the screen size.
+monocle: all windows are maximised to the screen size subject to gaps.
 .IP \[bu]
-deck: the stacking clients are placed floating on top of each other
-such that there are only two partitions of the screen space.
+deck: the stacking clients are placed floating on top of each other such that
+there are only two partitions of the screen space.
 .P
-Dialog windows are always managed floating, regardless of the layout
-applied.
+Dialog windows are always managed floating, regardless of the layout applied.
 .P
-Windows are grouped by tags. Each window can be tagged with one or
-multiple tags. Selecting certain tags displays all windows with these
-tags.
+Windows are grouped by tags. Each window can be tagged with one or multiple
+tags. Selecting certain tags displays all windows with these tags.
 .P
-Each screen contains a small status bar which displays all available
-tags, the layout, the title of the focused window, and the text read
-from the root window name property, if the screen is focused. A
-floating window is indicated with an empty square and a maximised
-floating window is indicated with a filled square before the windows
-title.  The selected tags are indicated with a different color. The
-tags of the focused window are indicated with a filled square in the
-top left corner.  The tags which are applied to one or more windows
-are indicated with an empty square in the top left corner.
+Each screen contains a small status bar which displays the occupied tags, the
+layout, the title of the focused window, and the text read from the root window
+name property, if the screen is focused. A floating window is indicated with an
+empty square.  The selected tags are indicated with a different color.
 .P
 dwm draws a small border around windows to indicate the focus state.
 .SH OPTIONS
@@ -63,7 +55,7 @@ Toggle status bar.
 .B Mod\-`
 Toggle scratchpad terminal (set to
 .BR st(1)
-).
+by default).
 
 .TP
 .B Mod\-j
@@ -91,7 +83,7 @@ Decrease gap size by 1.
 
 .TP
 .B Mod\-/
-Toggle gaps (default value is set to 50).
+Toggle gaps between two gap values - defaults to 0 and 50.
 
 .TP
 .B Mod\-Shift\-/
@@ -130,20 +122,18 @@ position.
 
 .TP
 .B Mod\-Shift\-j
-Rotate the master clients anticlockwise but keep focus on the same
-position.
+Rotate the master clients anticlockwise but keep focus on the same position.
 
 .TP
 .B Mod\-c
-Swap a window from the stack with the master.  If on the master, swap
-with the top of the stack.  If on a member of the stack, swap with
-master.
+Swap a window from the stack with the master.  If on the master, swap with the
+top of the stack.  If on a member of the stack, swap with master.
 
 .TP
 .B Mod\-Control\-h/j/k/l
-Move the focused window left/down/up/right by 32 pixels.  NOTE: this
-only works on floating windows; anything that is managed by the tiling
-layout will not be affected by this.
+Move the focused window left/down/up/right by 32 pixels.  NOTE: this only works
+on floating windows; anything that is managed by the tiling layout will be
+turned into a floating window before movement occurs.
 
 .TP
 .B Mod\-Control\-s
@@ -171,8 +161,8 @@ Toggle between current layout and previous layout.
 
 .TP
 .B Mod\-space
-Toggle current client's floating (floating -> not floating, not
-floating -> floating).
+Toggle current client's floating (floating -> not floating, not floating ->
+floating).
 
 .TP
 .B Mod\-<x in [1..n]>
@@ -230,8 +220,8 @@ Kill dwm.
 
 .TP
 .B Mod\-Button1
-Move focused window while dragging. Tiled windows will be toggled to
-the floating state.
+Move focused window while dragging. Tiled windows will be toggled to the
+floating state.
 
 .TP
 .B Mod\-Button2
@@ -239,23 +229,21 @@ Toggles focused window between floating and tiled state.
 
 .TP
 .B Mod\-Button3
-Resize focused window while dragging. Tiled windows will be toggled to
-the floating state.
+Resize focused window while dragging. Tiled windows will be toggled to the
+floating state.
 
 .SH CUSTOMIZATION
-dwm is customised by creating a custom config.h and (re)compiling the
-source code. This keeps it fast, secure and simple.
+dwm is customised by creating a custom config.h and (re)compiling the source
+code. This keeps it fast, secure and simple.
 .SH SEE ALSO
 .BR dwmblocks (1),
-.BR dmenu (1),
 .BR st (1)
 .SH ISSUES
-Java applications which use the XToolkit/XAWT backend may draw grey
-windows only. The XToolkit/XAWT backend breaks ICCCM-compliance in
-recent JDK 1.5 and early JDK 1.6 versions, because it assumes a
-reparenting window manager. Possible workarounds are using JDK 1.4
-(which doesn't contain the XToolkit/XAWT backend) or setting the
-environment variable
+Java applications which use the XToolkit/XAWT backend may draw grey windows
+only. The XToolkit/XAWT backend breaks ICCCM-compliance in recent JDK 1.5 and
+early JDK 1.6 versions, because it assumes a reparenting window
+manager. Possible workarounds are using JDK 1.4 (which doesn't contain the
+XToolkit/XAWT backend) or setting the environment variable
 .BR AWT_TOOLKIT=MToolkit
 (to use the older Motif backend instead) or running
 .B xprop -root -f _NET_WM_NAME 32a -set _NET_WM_NAME LG3D
